@@ -4,6 +4,12 @@
     "gbrachetta"
   ],
   "rules": {
+    "import/no-anonymous-default-export": [
+      2,
+      {
+        "allowObject": true
+      }
+    ],
     "sort-exports/sort-exports": 0,
     "sort-keys-fix/sort-keys-fix": 0
   }
