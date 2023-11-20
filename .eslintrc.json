@@ -4,6 +4,7 @@
     "gbrachetta"
   ],
   "rules": {
+    "sort-exports/sort-exports": 0,
     "sort-keys-fix/sort-keys-fix": 0
   }
 }

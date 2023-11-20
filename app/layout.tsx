@@ -1,5 +1,7 @@
 import { Inter } from "next/font/google";
 
+import { ThemeProvider } from "@/components/providers/theme-provider";
+
 import type { Metadata } from "next";
 
 import "./globals.css";
@@ -35,7 +37,17 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          disableTransitionOnChange
+          enableSystem
+          storageKey="jotion-theme"
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
