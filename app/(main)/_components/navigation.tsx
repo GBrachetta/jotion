@@ -5,6 +5,8 @@ import { useMediaQuery } from "usehooks-ts";
 
 import { cn } from "@/lib/utils";
 
+import { UserItem } from "./user-item";
+
 export const Navigation = () => {
   const pathname = usePathname();
 
@@ -77,7 +79,7 @@ export const Navigation = () => {
         "width",
         isMobile ? "0" : "calc(100% - 240px)",
       );
-      navbarRef.current.style.setProperty("lefft", isMobile ? "100%" : "240px");
+      navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
 
       setTimeout(() => {
         setIsResetting(false);
@@ -120,7 +122,7 @@ export const Navigation = () => {
           <ChevronsLeft className="h-6 w-6" />
         </div>
         <div>
-          <p>Action items</p>
+          <UserItem />
         </div>
         <div className="mt-4">
           <p>Documents</p>
