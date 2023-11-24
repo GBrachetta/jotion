@@ -1,14 +1,26 @@
-import { ChevronsLeft, MenuIcon } from "lucide-react";
+import { useMutation } from "convex/react";
+import {
+  ChevronsLeft,
+  MenuIcon,
+  PlusCircle,
+  Search,
+  Settings,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
 
+import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
 
+import { Item } from "./item";
 import { UserItem } from "./user-item";
 
 export const Navigation = () => {
   const pathname = usePathname();
+
+  const create = useMutation(api.documents.create);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -101,6 +113,16 @@ export const Navigation = () => {
     }
   };
 
+  const handleCreate = () => {
+    const promise = create({ title: "Untitled" });
+
+    toast.promise(promise, {
+      loading: "Creating a note...",
+      success: "Note created!",
+      error: "Failed to create note.",
+    });
+  };
+
   return (
     <>
       <aside
@@ -123,6 +145,22 @@ export const Navigation = () => {
         </div>
         <div>
           <UserItem />
+          <Item
+            icon={Search}
+            isSearch
+            label="Search"
+            onClick={() => {}}
+          />
+          <Item
+            icon={Settings}
+            label="Settings"
+            onClick={() => {}}
+          />
+          <Item
+            icon={PlusCircle}
+            label="New page"
+            onClick={handleCreate}
+          />
         </div>
         <div className="mt-4">
           <p>Documents</p>
