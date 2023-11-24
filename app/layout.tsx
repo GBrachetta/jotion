@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import { Toaster } from "sonner";
 
 import { ConvexProvider } from "@/components/providers/convex-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
@@ -47,6 +48,10 @@ export default function RootLayout({
             enableSystem
             storageKey="jotion-theme"
           >
+            <Toaster
+              position="top-center"
+              theme="system"
+            />
             {children}
           </ThemeProvider>
         </ConvexProvider>
