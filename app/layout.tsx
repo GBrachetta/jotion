@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 
 import { ConvexProvider } from "@/components/providers/convex-provider";
+import { ModalProvider } from "@/components/providers/modal-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 
 import type { Metadata } from "next";
@@ -52,6 +53,7 @@ export default function RootLayout({
               position="top-center"
               theme="system"
             />
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </ConvexProvider>
