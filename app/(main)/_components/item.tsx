@@ -34,7 +34,7 @@ interface ItemProps {
   isSearch?: boolean;
   label: string;
   level?: number;
-  onClick: () => void;
+  onClick?: () => void;
   onExpand?: () => void;
 }
 
