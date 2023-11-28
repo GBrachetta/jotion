@@ -80,21 +80,20 @@ export const Item = ({
     event.stopPropagation();
     if (!id) return;
 
-    const promise = create({
-      title: "Untitled",
-      parentDocument: id,
-    }).then((documentId) => {
-      if (!expanded) {
-        onExpand?.();
-      }
+    const promise = create({ parentDocument: id, title: "Untitled" }).then(
+      (documentId) => {
+        if (!expanded) {
+          onExpand?.();
+        }
 
-      // router.push(`/documents/${documentId}`);
-    });
+        router.push(`/documents/${documentId}`);
+      },
+    );
 
     toast.promise(promise, {
+      error: "Failed to create document.",
       loading: "Creating document...",
       success: "Document created!",
-      error: "Failed to create document.",
     });
   };
 
