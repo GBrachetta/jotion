@@ -58,15 +58,18 @@ export const Item = ({
 
   const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
+
     if (!id) return;
 
     const promise = archive({ id });
 
     toast.promise(promise, {
-      loading: "Archiving document...",
-      success: "Document archived!",
-      error: "Failed to archive document.",
+      loading: "Deleting document...",
+      success: "Document deleted!",
+      error: "Failed to delete document.",
     });
+
+    router.push("/documents");
   };
 
   const handleExpand = (
@@ -121,7 +124,7 @@ export const Item = ({
       {documentIcon ? (
         <div className="mr-2 shrink-0 text-[18px]">{documentIcon}</div>
       ) : (
-        <Icon className="mr-2 h-[18px] shrink-0 text-muted-foreground" />
+        <Icon className="mr-2 h-[18px] w-[18px] shrink-0 text-muted-foreground" />
       )}
       <span className="truncate">{label}</span>
       {isSearch && (
@@ -149,13 +152,16 @@ export const Item = ({
               forceMount
               side="right"
             >
-              <DropdownMenuItem onClick={onArchive}>
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={onArchive}
+              >
                 <Trash className="mr-2 h-4 w-4" />
                 Delete
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <div className="p-2 text-xs text-muted-foreground">
-                Last edited by: {user?.fullName}
+              <div className="line-clamp-1 p-2 text-xs text-muted-foreground">
+                Last edited by {user?.fullName}
               </div>
             </DropdownMenuContent>
           </DropdownMenu>

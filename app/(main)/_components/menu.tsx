@@ -54,13 +54,17 @@ export const Menu = ({ documentId }: MenuProps) => {
         align="end"
         alignOffset={8}
         className="w-60"
+        forceMount
       >
-        <DropdownMenuItem onClick={onArchive}>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={onArchive}
+        >
           <Trash className="mr-2 h-4 w-4" />
           Delete
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <div className="p-2 text-xs text-muted-foreground">
+        <div className="truncate p-2 text-xs text-muted-foreground">
           Last edited by: {user?.fullName}
         </div>
       </DropdownMenuContent>

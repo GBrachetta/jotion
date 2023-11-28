@@ -1,5 +1,7 @@
+"use client";
+
 const DocumentIdPage = () => {
-  return <div className="">DocumentIdPage</div>;
+  return <div>DocumentIdPage</div>;
 };
 
 export default DocumentIdPage;
