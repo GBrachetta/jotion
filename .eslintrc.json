@@ -10,6 +10,7 @@
         "allowObject": true
       }
     ],
+    "no-empty-function": 1,
     "prefer-const": 0,
     "sort-exports/sort-exports": 0,
     "sort-keys-fix/sort-keys-fix": 0
