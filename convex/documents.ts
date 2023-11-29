@@ -77,6 +77,26 @@ export const getSidebar = query({
   },
 });
 
+export const getFavorites = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const documents = await ctx.db
+      .query("documents")
+
+      .filter((q) => q.eq(q.field("isArchived"), false))
+      .filter((q) => q.eq(q.field("isFavorite"), true))
+      .order("desc")
+      .collect();
+
+    return documents;
+  },
+});
+
 export const create = mutation({
   args: {
     title: v.string(),
@@ -97,6 +117,7 @@ export const create = mutation({
       userId,
       isArchived: false,
       isPublished: false,
+      isFavorite: false,
     });
 
     return document;
@@ -267,6 +288,7 @@ export const update = mutation({
     coverImage: v.optional(v.string()),
     icon: v.optional(v.string()),
     isPublished: v.optional(v.boolean()),
+    isFavorite: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -289,7 +311,7 @@ export const update = mutation({
       throw new Error("Unauthorized");
     }
 
-    const document = await ctx.db.patch(args.id, {
+    const document = await ctx.db.patch(id, {
       ...rest,
     });
 

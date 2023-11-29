@@ -26,6 +26,7 @@ import { useSettings } from "@/hooks/use-settings";
 import { cn } from "@/lib/utils";
 
 import { DocumentList } from "./document-list";
+import { FavoritesList } from "./favorites-list";
 import { Item } from "./item";
 import { Navbar } from "./navbar";
 import { TrashBox } from "./trash-box";
@@ -184,6 +185,19 @@ export const Navigation = () => {
           />
         </div>
         <div className="mt-4">
+          <p className="p-3 text-sm font-semibold text-muted-foreground">
+            Favorites
+          </p>
+          <div>
+            <p className="hidden px-[18px] text-sm last:block">
+              No favorites yet
+            </p>
+            <FavoritesList />
+          </div>
+          <p className="p-3 text-sm font-semibold text-muted-foreground">
+            Notes
+          </p>
+
           <DocumentList />
           <Item
             icon={Plus}

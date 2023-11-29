@@ -31,6 +31,7 @@ interface ItemProps {
   expanded?: boolean;
   icon: LucideIcon;
   id?: Id<"documents">;
+  isFavorite?: boolean;
   isSearch?: boolean;
   label: string;
   level?: number;
@@ -44,6 +45,7 @@ export const Item = ({
   expanded,
   icon: Icon,
   id,
+  isFavorite,
   isSearch,
   label,
   level = 0,
@@ -118,7 +120,9 @@ export const Item = ({
           onClick={handleExpand}
           role="button"
         >
-          <ChevronIcon className="h-4 w-4 shrink-0 text-muted-foreground/50" />
+          {!isFavorite && (
+            <ChevronIcon className="h-4 w-4 shrink-0 text-muted-foreground/50" />
+          )}
         </div>
       )}
       {documentIcon ? (

@@ -8,6 +8,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 
 import { Banner } from "./banner";
+import { Favorite } from "./favorite";
 import { Menu } from "./menu";
 import { Publish } from "./publish";
 import { Title } from "./title";
@@ -50,6 +51,7 @@ export const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
         <div className="flex w-full items-center justify-between">
           <Title initialData={document} />
           <div className="flex items-center gap-x-2">
+            <Favorite initialData={document} />
             <Publish initialData={document} />
             <Menu documentId={document._id} />
           </div>
