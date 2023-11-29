@@ -10,9 +10,11 @@ import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { Spinner } from "@/components/spinner";
 import { Input } from "@/components/ui/input";
 import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
+import { Doc } from "@/convex/_generated/dataModel";
+import { useEdgeStore } from "@/lib/edgestore";
 
 export const TrashBox = () => {
+  const { edgestore } = useEdgeStore();
   const router = useRouter();
   const params = useParams();
 
@@ -32,10 +34,10 @@ export const TrashBox = () => {
 
   const onRestore = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    documentId: Id<"documents">,
+    document: Doc<"documents">,
   ) => {
     event.stopPropagation();
-    const promise = restore({ id: documentId });
+    const promise = restore({ id: document._id });
 
     toast.promise(promise, {
       loading: "Restoring note...",
@@ -44,8 +46,14 @@ export const TrashBox = () => {
     });
   };
 
-  const onRemove = (documentId: Id<"documents">) => {
-    const promise = remove({ id: documentId });
+  const onRemove = async (document: Doc<"documents">) => {
+    if (document.coverImage) {
+      const url = document.coverImage;
+
+      await edgestore.publicFiles.delete({ url });
+    }
+
+    const promise = remove({ id: document._id });
 
     toast.promise(promise, {
       loading: "Removing note...",
@@ -53,7 +61,7 @@ export const TrashBox = () => {
       error: "Failed to remove note.",
     });
 
-    if (params.documentId === documentId) {
+    if (params.documentId === document._id) {
       router.push("/documents");
     }
   };
@@ -92,12 +100,12 @@ export const TrashBox = () => {
             <div className="flex items-center">
               <div
                 className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
-                onClick={(e) => onRestore(e, document._id)}
+                onClick={(e) => onRestore(e, document)}
                 role="button"
               >
                 <Undo className="h-4 w-4 text-muted-foreground" />
               </div>
-              <ConfirmModal onConfirm={() => onRemove(document._id)}>
+              <ConfirmModal onConfirm={() => onRemove(document)}>
                 <div
                   className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                   role="button"

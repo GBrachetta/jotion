@@ -18,7 +18,6 @@ interface DocumentListProps {
 }
 
 export const DocumentList = ({
-  data,
   level = 0,
   parentDocumentId,
 }: DocumentListProps) => {
