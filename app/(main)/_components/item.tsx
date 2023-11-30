@@ -8,6 +8,7 @@ import {
   LucideIcon,
   MoreHorizontal,
   Plus,
+  Star,
   Trash,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -57,6 +58,15 @@ export const Item = ({
 
   const create = useMutation(api.documents.create);
   const archive = useMutation(api.documents.archive);
+  const favorite = useMutation(api.documents.update);
+
+  const onFavorite = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation();
+
+    if (!id) return;
+
+    favorite({ id, isFavorite: isFavorite ? false : true });
+  };
 
   const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
@@ -163,19 +173,28 @@ export const Item = ({
                 <Trash className="mr-2 h-4 w-4" />
                 Delete
               </DropdownMenuItem>
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={onFavorite}
+              >
+                <Star className="mr-2 h-4 w-4" />
+                {isFavorite ? "Unfavorite" : "Favorite"}
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <div className="line-clamp-1 p-2 text-xs text-muted-foreground">
                 Last edited by {user?.fullName}
               </div>
             </DropdownMenuContent>
           </DropdownMenu>
-          <div
-            className="ml-auto h-full rounded-sm opacity-0 hover:bg-neutral-300 group-hover:opacity-100 dark:hover:bg-neutral-600"
-            onClick={onCreate}
-            role="button"
-          >
-            <Plus className="h-4 w-4 text-muted-foreground" />
-          </div>
+          {!isFavorite && (
+            <div
+              className="ml-auto h-full rounded-sm opacity-0 hover:bg-neutral-300 group-hover:opacity-100 dark:hover:bg-neutral-600"
+              onClick={onCreate}
+              role="button"
+            >
+              <Plus className="h-4 w-4 text-muted-foreground" />
+            </div>
+          )}
         </div>
       )}
     </div>
