@@ -5,6 +5,7 @@ import { useMutation } from "convex/react";
 import {
   ChevronDown,
   ChevronRight,
+  Copy,
   LucideIcon,
   MoreHorizontal,
   Plus,
@@ -59,6 +60,7 @@ export const Item = ({
   const create = useMutation(api.documents.create);
   const archive = useMutation(api.documents.archive);
   const favorite = useMutation(api.documents.update);
+  const duplicate = useMutation(api.documents.duplicate);
 
   const onFavorite = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
@@ -66,6 +68,14 @@ export const Item = ({
     if (!id) return;
 
     favorite({ id, isFavorite: isFavorite ? false : true });
+  };
+
+  const onDuplicate = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation();
+
+    if (!id) return;
+
+    duplicate({ id });
   };
 
   const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -180,8 +190,15 @@ export const Item = ({
                 <Star className="mr-2 h-4 w-4" />
                 {isFavorite ? "Unfavorite" : "Favorite"}
               </DropdownMenuItem>
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={onDuplicate}
+              >
+                <Copy className="mr-2 h-4 w-4" />
+                Duplicate
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <div className="line-clamp-1 p-2 text-xs text-muted-foreground">
+              <div className="truncate p-2 text-xs text-muted-foreground">
                 Last edited by {user?.fullName}
               </div>
             </DropdownMenuContent>
