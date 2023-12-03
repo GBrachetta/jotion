@@ -39,13 +39,18 @@ export const MoveList = ({
     parentDocument: parentDocumentId,
   });
 
+  const currentDocument = useQuery(api.documents.getById, {
+    documentId: params.documentId as Id<"documents">,
+  });
+
   const possibleDestinations = documents?.filter(
-    (possibleDestination) => possibleDestination._id !== params.documentId,
+    (possibleDestination) =>
+      possibleDestination._id !== params.documentId &&
+      currentDocument?.parentDocument !== possibleDestination._id,
   );
 
   const handleMove = (documentId: Id<"documents">) => {
     if (!documentId) return;
-
     const promise = move({
       id: params.documentId as Id<"documents">,
       destinationId: documentId,

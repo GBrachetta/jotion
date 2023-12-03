@@ -52,7 +52,6 @@ export const MoveToItem = ({
       >
         <ChevronIcon className="h-4 w-4 shrink-0 text-muted-foreground/50" />
       </div>
-      {/* // )} */}
       {documentIcon ? (
         <div className="mr-2 shrink-0 text-[18px]">{documentIcon}</div>
       ) : (
