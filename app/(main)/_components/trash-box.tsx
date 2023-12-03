@@ -13,6 +13,15 @@ import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
 import { useEdgeStore } from "@/lib/edgestore";
 
+interface PartialContent {
+  props: {
+    url: string;
+  };
+  type: string;
+}
+
+type Content = PartialContent[];
+
 export const TrashBox = () => {
   const { edgestore } = useEdgeStore();
   const router = useRouter();
@@ -51,6 +60,18 @@ export const TrashBox = () => {
       const url = document.coverImage;
 
       await edgestore.publicFiles.delete({ url });
+    }
+
+    if (document.content?.includes("image")) {
+      const parsedContent: Content = JSON.parse(document.content);
+
+      const urls = parsedContent
+        .filter((content) => content.type === "image")
+        .map((content) => content.props.url);
+
+      for (const url of urls) {
+        await edgestore.publicFiles.delete({ url });
+      }
     }
 
     const promise = remove({ id: document._id });
