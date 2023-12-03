@@ -1,7 +1,15 @@
 # Jotion
 
-## Issues
+[Original Concept](<https://www.youtube.com/watch?v=0OaDyjB9Ib8&t=2269s&ab_channel=CodeWithAntonio>)
 
-## Ideas
+## Improvements
 
-- Animate navbar to appear on scroll using the `useScrollTop` hook, as in [here](https://www.ft.com/content/38f718d3-0289-4b12-8faf-245c19d65cb0)
+- Clean Edgestore on removal of posts, including eventual images in content.
+- Add move documents functionality (filter only possible destinations)
+- Add duplicate documents functionality
+- Add font selection option in settings
+- Add option to mark documents as favorite
+
+## Deployment
+
+[Link](https://jotion-improved.vercel.app/)
