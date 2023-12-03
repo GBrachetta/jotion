@@ -6,6 +6,7 @@ import {
   ChevronDown,
   ChevronRight,
   Copy,
+  CopyCheck,
   LucideIcon,
   MoreHorizontal,
   Plus,
@@ -22,10 +23,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
+
+import { MoveList } from "./move-list";
 
 interface ItemProps {
   active?: boolean;
@@ -197,6 +205,16 @@ export const Item = ({
                 <Copy className="mr-2 h-4 w-4" />
                 Duplicate
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <Popover>
+                <PopoverTrigger className="flex w-full items-center rounded-sm py-1.5 pl-2 text-sm hover:bg-neutral-200 dark:hover:bg-neutral-800">
+                  <CopyCheck className="mr-2 h-4 w-4" />
+                  Move
+                </PopoverTrigger>
+                <PopoverContent forceMount>
+                  <MoveList />
+                </PopoverContent>
+              </Popover>
               <DropdownMenuSeparator />
               <div className="truncate p-2 text-xs text-muted-foreground">
                 Last edited by {user?.fullName}
